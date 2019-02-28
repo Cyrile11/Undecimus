@@ -1117,6 +1117,10 @@ void jailbreak()
         }
     }
     
+    if (auth_ptrs) {
+        goto out;
+    }
+    
     UPSTAGE();
     
     {

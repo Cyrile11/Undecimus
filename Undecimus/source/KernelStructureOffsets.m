@@ -8,6 +8,7 @@
 
 #include "KernelStructureOffsets.h"
 #include <common.h>
+#include "utils.h"
 
 int* offsets = NULL;
 
@@ -199,6 +200,9 @@ int koffset(enum kstruct_offset offset)
         if (kCFCoreFoundationVersionNumber >= 1535.12) {
             LOG("offsets selected for iOS 12.0 or above");
             offsets = kstruct_offsets_12_0;
+            if (machineNameContains("iPhone11,") || machineNameContains("iPad8,")) {
+                offsets[KSTRUCT_OFFSET_TASK_BSD_INFO] = 0x368;
+            }
         } else if (kCFCoreFoundationVersionNumber >= 1452.23) {
             LOG("offsets selected for iOS 11.3 or above");
             offsets = kstruct_offsets_11_3;
